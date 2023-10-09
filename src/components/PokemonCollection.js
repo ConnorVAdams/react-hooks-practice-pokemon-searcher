@@ -2,9 +2,12 @@ import React from "react";
 import PokemonCard from "./PokemonCard";
 import { Card } from "semantic-ui-react";
 
-function PokemonCollection({ pokemon }) {
+function PokemonCollection({ pokemon, searchQuery }) {
   
-  const pokesToDisplay = pokemon.map(poke => {
+  const regEx = new RegExp(searchQuery, 'i')
+  const pokesToDisplay = pokemon
+  .filter(poke => regEx.test(poke.name.toLowerCase()))
+  .map(poke => {
     return <PokemonCard key={poke.id} {...poke} />
   })
   
