@@ -13,13 +13,19 @@ function PokemonPage() {
     .then(pokemon => setPokemon(pokemon))
   }, [])
 
+  const handleSearch = (searchQuery) => {
+    const regEx = new RegExp(searchQuery, 'i')
+    const newPokemon = pokemon.filter(poke => regEx.test(poke.name.toLowerCase()))
+    setPokemon(newPokemon)
+  }
+
   return (
     <Container>
       <h1>Pokemon Searcher</h1>
       <br />
       <PokemonForm />
       <br />
-      <Search />
+      <Search onSearch={handleSearch} />
       <br />
       <PokemonCollection pokemon={pokemon} />
     </Container>
